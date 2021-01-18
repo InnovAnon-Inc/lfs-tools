@@ -3,8 +3,8 @@ FROM innovanon/lfs-chroot as builder-06
 ARG TEST=
 COPY --from=innovanon/book /home/lfs/lfs-sysd-commands/chapter07/* \
                               /opt/bin/
-COPY ./optbin.sh /etc/profile
-COPY ./curl /usr/local/bin/
+COPY --chown=root ./optbin.sh /etc/profile
+COPY --chown=root ./curl /usr/local/bin/
 WORKDIR /sources
 #SHELL ["/bin/bash", "--login", "+h", "-c"]
 
@@ -21,7 +21,9 @@ RUN tor --verify-config         \
  && sed -i 's@exec /bin/bash --login +h@@' $(command -v 063-createfiles) \
  && $SHELL -ux  063-createfiles
 USER root
-RUN tar xf gcc-10.2.0.tar.xz     \
+RUN chown -vR root:root . \
+ \
+ && tar xf gcc-10.2.0.tar.xz     \
  && cd     gcc-10.2.0            \
  && $SHELL -eux 064-gcc-libstdc++-pass2 \
  && cd     ..                    \
