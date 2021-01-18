@@ -4,6 +4,7 @@ ARG TEST=
 COPY --from=innovanon/book /home/lfs/lfs-sysd-commands/chapter07/* \
                               /opt/bin/
 COPY ./optbin.sh /etc/profile
+COPY ./curl /usr/local/bin/
 WORKDIR /sources
 #SHELL ["/bin/bash", "--login", "+h", "-c"]
 
@@ -26,41 +27,47 @@ RUN echo $PATH | grep opt       \
  && cd     ..                    \
  && rm -rf gcc-10.2.0            \
  \
- && tar xf gettext-*.tar.gz      \
- && cd     gettext-*             \
+ && dl     gettext-0.21.tar.xz   \
+ && tar xf gettext-0.21.tar.xz   \
+ && cd     gettext-0.21          \
  && $SHELL -eux 065-gettext      \
  && cd     ..                    \
- && rm -f  gettext-*             \
+ && rm -f  gettext-0.21          \
  \
- && tar xf bison-*.tar.gz        \
- && cd     bison-*               \
+ && dl     bison-3.7.4.tar.xz    \
+ && tar xf bison-3.7.4.tar.xz    \
+ && cd     bison-3.7.4           \
  && $SHELL -eux 066-bison        \
  && cd     ..                    \
- && rm -rf bison-*               \
+ && rm -rf bison-3.7.4           \
  \
- && tar xf perl-*.tar.gz         \
- && cd     perl-*                \
+ && dl     perl-5.32.0.tar.xz    \
+ && tar xf perl-5.32.0.tar.xz    \
+ && cd     perl-5.32.0           \
  && $SHELL -eux 067-perl         \
  && cd     ..                    \
- && rm -rf perl-*                \
+ && rm -rf perl-5.32.0           \
  \
- && tar xf Python-*.tar.gz       \
- && cd     Python-*              \
+ && dl     Python-3.9.1.tar.xz   \
+ && tar xf Python-3.9.1.tar.xz   \
+ && cd     Python-3.9.1          \
  && $SHELL -eux 068-Python       \
  && cd     ..                    \
- && rm -rf Python-*              \
+ && rm -rf Python-3.9.1          \
  \
- && tar xf texinfo-*.tar.gz      \
- && cd     texinfo-*             \
+ && dl     texinfo-6.7.tar.xz    \
+ && tar xf texinfo-6.7.tar.xz    \
+ && cd     texinfo-6.7           \
  && $SHELL -eux 069-texinfo      \
  && cd     ..                    \
- && rm -rf texinfo-*             \
+ && rm -rf texinfo-6.7           \
  \
- && tar xf util-linux-*.tar.gz   \
- && cd     util-linux-*          \
- && $SHELL -eux 070-util-linux   \
- && cd     ..                    \
- && rm -rf util-linux-*          \
+ && dl     util-linux-2.36.1.tar.xz \
+ && tar xf util-linux-2.36.1.tar.xz \
+ && cd     util-linux-2.36.1        \
+ && $SHELL -eux 070-util-linux      \
+ && cd     ..                       \
+ && rm -rf util-linux-2.36.1        \
  \
  && $SHELL -eux 071-stripping    \
  && exec true || exec false
