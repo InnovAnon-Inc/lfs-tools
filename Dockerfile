@@ -22,6 +22,7 @@ RUN tor --verify-config         \
  && $SHELL -ux  063-createfiles
 USER root
 RUN chown -vR root:root . \
+ && chmod -v 1777 . \
  \
  && tar xf gcc-10.2.0.tar.xz     \
  && cd     gcc-10.2.0            \
