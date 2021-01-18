@@ -14,17 +14,15 @@ WORKDIR /sources
 #061-chroot
 RUN tor --verify-config         \
  && chmod -v +x /opt/bin/*      \
- && echo $PATH | grep opt       \
- && command -v 062-creatingdirs \
  \
  && $SHELL -eux 062-creatingdirs \
- && sed -i 's@exec /bin/bash --login +h@@' $(command -v 063-createfiles) \
+ \
+ && command -v 063-createfiles   \
+ && sed -i 's@exec /bin/bash --login +h@@' \
+      $(command -v 063-createfiles) \
  && $SHELL -ux  063-createfiles
 USER root
-RUN chown -vR root:root . \
- && chmod -v 1777 . \
- \
- && tar xf gcc-10.2.0.tar.xz     \
+RUN tar xf gcc-10.2.0.tar.xz     \
  && cd     gcc-10.2.0            \
  && $SHELL -eux 064-gcc-libstdc++-pass2 \
  && cd     ..                    \
