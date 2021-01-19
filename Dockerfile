@@ -22,7 +22,9 @@ RUN tor --verify-config         \
       $(command -v 063-createfiles) \
  && $SHELL -ux  063-createfiles
 USER root
-RUN tar xf gcc-10.2.0.tar.xz     \
+RUN ls -ltra \
+ \
+ && tar xf gcc-10.2.0.tar.xz     \
  && cd     gcc-10.2.0            \
  && $SHELL -eux 064-gcc-libstdc++-pass2 \
  && cd     ..                    \
